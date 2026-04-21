@@ -499,6 +499,15 @@
       flex-direction: column;
       gap: 10px;
     }
+    .carousel-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .carousel-card-identity {
+      display: flex;
+      flex-direction: column;
+    }
     .carousel-card-photo {
       width: 56px;
       height: 56px;
@@ -528,20 +537,24 @@
     }
     .carousel-card-name {
       font-family: 'Inter Tight', sans-serif;
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 700;
-      color: var(--text);
       line-height: 1.2;
       margin-top: 4px;
     }
+    .carousel-card-name a {
+      color: var(--red);
+      text-decoration: none;
+      transition: opacity .15s;
+    }
+    .carousel-card-name a:hover { opacity: .7; }
     .carousel-card-role {
-      font-family: 'Archivo Narrow', sans-serif;
-      font-size: 13px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 11px;
       font-weight: 400;
-      color: #D92429;
-      text-transform: uppercase;
-      letter-spacing: 0;
-      margin-top: 1px;
+      color: var(--text-light);
+      margin-top: 2px;
+      display: block;
     }
     .carousel-card-bio {
       font-family: 'Lora', serif;
@@ -753,31 +766,43 @@
 
             <!-- Card 1 -->
             <div class="carousel-card">
-              <div class="carousel-card-photo">
-                <img src="putin-portrait.jpg" alt="Vladimir Putin" />
+              <div class="carousel-card-header">
+                <div class="carousel-card-photo">
+                  <img src="putin-portrait.jpg" alt="Vladimir Putin" />
+                </div>
+                <div class="carousel-card-identity">
+                  <div class="carousel-card-name"><a href="https://www.occrp.org/en/people/vladimir-putin/page/1" target="_blank">Vladimir Putin</a></div>
+                  <div class="carousel-card-role">President of Russia</div>
+                </div>
               </div>
-              <div class="carousel-card-name">Vladimir Putin</div>
-              <div class="carousel-card-role">President of Russia</div>
               <p class="carousel-card-bio">A Russian politician and former intelligence officer who has served as President of Russia since 2012, having previously served from 2000 to 2008. Putin also served as Prime Minister of Russia from 1999 to 2000 and again from 2008 to 2012.</p>
             </div>
 
             <!-- Card 2 -->
             <div class="carousel-card">
-              <div class="carousel-card-photo">
-                <img src="macron-portrait.jpg" alt="Emmanuel Macron" />
+              <div class="carousel-card-header">
+                <div class="carousel-card-photo">
+                  <img src="macron-portrait.jpg" alt="Emmanuel Macron" />
+                </div>
+                <div class="carousel-card-identity">
+                  <div class="carousel-card-name"><a href="https://www.occrp.org/en/people/emmanuel-macron/page/1" target="_blank">Emmanuel Macron</a></div>
+                  <div class="carousel-card-role">President of France</div>
+                </div>
               </div>
-              <div class="carousel-card-name">Emmanuel Macron</div>
-              <div class="carousel-card-role">President of France</div>
               <p class="carousel-card-bio">A French politician who has served as President of France and Co-Prince of Andorra since 2017. He served as Minister of Economics and Finance under President François Hollande from 2014 to 2016. He has been a member of Renaissance since founding the party in 2016.</p>
             </div>
 
             <!-- Card 3 -->
             <div class="carousel-card">
-              <div class="carousel-card-photo">
-                <img src="magyar-portrait.jpg" alt="Péter Magyar" />
+              <div class="carousel-card-header">
+                <div class="carousel-card-photo">
+                  <img src="magyar-portrait.jpg" alt="Péter Magyar" />
+                </div>
+                <div class="carousel-card-identity">
+                  <div class="carousel-card-name"><a href="https://www.occrp.org/en/people/page/1" target="_blank">Péter Magyar</a></div>
+                  <div class="carousel-card-role">Member of the European Parliament</div>
+                </div>
               </div>
-              <div class="carousel-card-name">Péter Magyar</div>
-              <div class="carousel-card-role">Member of the European Parliament</div>
               <p class="carousel-card-bio">A Hungarian politician and lawyer who is the president of the Tisza Party. He led the party to victory in the 2026 parliamentary election and is expected to become the next prime minister of Hungary. Magyar served as a member of the European Parliament from 2024 to 2026.</p>
             </div>
 
