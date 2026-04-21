@@ -6,7 +6,7 @@
   <title>Secretive Firms From U.K. to Singapore Win $200M in Tenders From Uzbek State Giant — OCCRP</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;600&family=Lora:ital,wght@0,400;0,700;1,400&family=Inter+Tight:wght@400;700;900&family=Archivo+Narrow:wght@300;400;700&display=swap" />
   <style>
     /* ── Reset & Base ─────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -138,17 +138,17 @@
       padding: 0 24px;
     }
     .article-headline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(26px, 4vw, 42px);
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 50px;
       font-weight: 700;
-      line-height: 1.2;
+      line-height: 1.1;
       color: #111;
       margin-bottom: 18px;
       text-align: center;
     }
     .article-deck {
-      font-family: 'Source Serif 4', serif;
-      font-size: 18px;
+      font-family: 'Lora', serif;
+      font-size: 17px;
       line-height: 1.55;
       color: var(--text-mid);
       margin-bottom: 28px;
@@ -166,12 +166,24 @@
     }
     .byline-left { display: flex; align-items: center; gap: 12px; }
     .reported-by-label {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .12em;
+      font-family: 'Archivo Narrow', sans-serif;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 0;
       text-transform: uppercase;
       color: #D92429;
       margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .reported-by-label::before {
+      content: '';
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #D92429;
+      flex-shrink: 0;
     }
     .author-avatars {
       display: flex;
@@ -222,15 +234,17 @@
       flex-shrink: 0;
     }
     .article-date {
+      font-family: 'Source Code Pro', monospace;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 400;
       letter-spacing: .04em;
       text-transform: uppercase;
       color: var(--text-mid);
     }
     .article-read-time {
+      font-family: 'Source Code Pro', monospace;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 400;
       letter-spacing: .04em;
       text-transform: uppercase;
       color: var(--text-mid);
@@ -264,14 +278,15 @@
       letter-spacing: .04em;
       color: var(--text-mid);
       background: none;
-      border: 1px solid var(--rule);
+      border: none;
       border-radius: 3px;
       padding: 6px 10px;
       cursor: pointer;
       transition: all .15s;
     }
-    .share-btn:hover { border-color: var(--red); color: var(--red); }
-    .share-btn svg { width: 13px; height: 13px; }
+    .share-btn:hover { color: var(--red); }
+    .share-btn svg { width: 13px; height: 13px; stroke: var(--red); }
+    .share-btn:hover svg { stroke: var(--red); }
 
     /* ── Hero image ───────────────────────────────────────────── */
     .hero-wrap {
@@ -286,7 +301,8 @@
       display: block;
     }
     .hero-caption {
-      font-size: 11.5px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 12px;
       color: var(--text-light);
       padding: 8px 0;
       margin-top: 6px;
@@ -313,10 +329,10 @@
       margin-bottom: 32px;
     }
     .key-findings summary {
-      font-family: 'Source Sans 3', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .14em;
+      font-family: 'Archivo Narrow', sans-serif;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 0;
       text-transform: uppercase;
       color: #D92429;
       cursor: pointer;
@@ -375,7 +391,7 @@
 
     /* ── Article body prose ───────────────────────────────────── */
     .article-body {
-      font-family: 'Source Serif 4', serif;
+      font-family: 'Lora', serif;
       font-size: 17px;
       line-height: 1.75;
       color: var(--text);
@@ -407,7 +423,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 14px 0;
-      margin-bottom: 28px;
+      margin-bottom: 22px;
       border-top: 1px solid var(--rule);
       gap: 16px;
     }
