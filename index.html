@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Protoype Article for Testing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Code+Pro:wght@400;600&family=Lora:ital,wght@0,400;0,700;1,400&family=Inter+Tight:wght@400;700;900&family=Archivo+Narrow:wght@300;400;700&display=swap" />
+  <style>
+    /* ── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      color: #1a1a1a;
+      background: #F4F3EC;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; height: auto; }
+
+    /* ── Colour tokens ────────────────────────────────────────── */
+    :root {
+      --red:        #D92429;
+      --red-dark:   #b01d21;
+      --orange:     #e07b20;
+      --gold:       #d4a017;
+      --amber-bg:   #F4F3EC;
+      --amber-border: #F4F3EC;
+      --text:       #1a1a1a;
+      --text-mid:   #444;
+      --text-light: #666;
+      --rule:       #ddd;
+      --nav-bg:     #fff;
+    }
+
+    /* ── Top bar ──────────────────────────────────────────────── */
+    .top-bar {
+      background: var(--red);
+      height: 3px;
+      width: 100%;
+    }
+
+    /* ── Site header / nav ────────────────────────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #F4F3EC;
+      border-bottom: 1px solid var(--rule);
+      box-shadow: 0 1px 4px rgba(0,0,0,.07);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 64px;
+      position: relative;
+    }
+    .nav-menu-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text);
+      background: none;
+      border: none;
+      padding: 0;
+    }
+    .nav-menu-btn svg { width: 20px; height: 20px; }
+    .nav-logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      height: 60px;
+      width: auto;
+      display: block;
+    }
+
+    /* ── Mega-menu overlay ────────────────────────────────────── */
+    .mega-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.75);
+      z-index: 200;
+    }
+    .mega-menu.open { display: flex; }
+    .mega-menu-panel {
+      background: #fff;
+      width: 320px;
+      height: 100%;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .mega-menu-close {
+      align-self: flex-end;
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    .mega-menu-panel a {
+      display: block;
+      padding: 10px 0;
+      font-size: 15px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--rule);
+      color: var(--text);
+      transition: color .15s;
+    }
+    .mega-menu-panel a:hover { color: var(--red); }
+
+
+    /* ── Article header ───────────────────────────────────────── */
+    .article-header {
+      max-width: 820px;
+      margin: 40px auto 0;
+      padding: 0 24px;
+    }
+    .article-headline {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 50px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: #111;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+    .article-deck {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--text-mid);
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    /* ── Byline ───────────────────────────────────────────────── */
+    .byline-wrap {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .byline-left { display: flex; align-items: center; gap: 12px; }
+    .reported-by-label {
+      font-family: 'Archivo Narrow', sans-serif;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: #D92429;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .reported-by-label::before {
+      content: '';
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #D92429;
+      flex-shrink: 0;
+    }
+    .author-avatars {
+      display: flex;
+      margin-right: 4px;
+    }
+    .author-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      background: #e0e0e0;
+      margin-right: -10px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .author-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .author-avatar-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg,#c0c0c0,#888);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .author-names {
+      margin-left: 16px;
+    }
+    .author-names a {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--red);
+      transition: opacity .15s;
+    }
+    .author-names a:hover { opacity: .7; }
+    .author-names .collab-note {
+      font-size: 11px;
+      color: var(--text-light);
+      display: block;
+      margin-top: 2px;
+    }
+    .byline-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    .article-date {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+    .article-read-time {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .article-read-time svg { flex-shrink: 0; }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .article-meta-sep {
+      color: var(--text-mid);
+      font-size: 12px;
+      font-weight: 400;
+      opacity: .5;
+    }
+    .share-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .share-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      color: var(--text-mid);
+      background: none;
+      border: none;
+      border-radius: 3px;
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .share-btn:hover { color: var(--red); }
+    .share-btn svg { width: 13px; height: 13px; stroke: var(--red); }
+    .share-btn:hover svg { stroke: var(--red); }
+
+    /* ── Hero image ───────────────────────────────────────────── */
+    .hero-wrap {
+      max-width: 1000px;
+      margin: 0 auto 0;
+      padding: 0 24px 0;
+    }
+    .hero-img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-caption {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 12px;
+      color: var(--text-light);
+      padding: 8px 0;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+    .hero-caption strong { font-weight: 600; color: var(--text-mid); }
+
+    /* ── Main content + sidebar ───────────────────────────────── */
+    .content-row {
+      max-width: 1100px;
+      margin: 32px auto 60px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ── Key Findings box ─────────────────────────────────────── */
+    .key-findings {
+      background: #F4F3EC;
+      border-radius: 4px;
+      padding: 18px 26px;
+      margin-bottom: 32px;
+    }
+    .key-findings summary {
+      font-family: 'Archivo Narrow', sans-serif;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: #D92429;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      user-select: none;
+    }
+    .key-findings summary::-webkit-details-marker { display: none; }
+    .key-findings summary::after {
+      content: '+';
+      font-size: 18px;
+      font-weight: 300;
+      color: #D92429;
+      margin-left: auto;
+      line-height: 1;
+      transition: transform .2s;
+    }
+    .key-findings[open] summary::after {
+      content: '−';
+    }
+    .key-findings summary::before {
+      content: '';
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #D92429;
+      flex-shrink: 0;
+    }
+    .key-findings ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(0,0,0,.1);
+    }
+    .key-findings ul li {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.55;
+      color: var(--text);
+      padding-left: 20px;
+      position: relative;
+    }
+    .key-findings ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: #D92429;
+      font-size: 12px;
+      top: 2px;
+    }
+
+    /* ── Article body prose ───────────────────────────────────── */
+    .article-body {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--text);
+    }
+    .article-body p { margin-bottom: 22px; }
+    .article-body p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 64px;
+      font-weight: 900;
+      line-height: .82;
+      float: left;
+      margin-right: 6px;
+      margin-top: 4px;
+      color: var(--red);
+    }
+    .article-body a {
+      color: var(--red);
+      text-decoration: underline;
+      text-decoration-color: transparent;
+      text-underline-offset: 3px;
+      transition: text-decoration-color .15s;
+    }
+    .article-body a:hover { text-decoration-color: var(--red); }
+    .article-body strong { font-weight: 700; }
+
+    /* ── Article meta bar (between key findings and body) ────────── */
+    .article-meta-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      margin-bottom: 22px;
+      border-top: 1px solid var(--rule);
+      gap: 16px;
+    }
+    .article-meta-bar .article-meta { text-align: left; }
+    .article-meta-bar .share-bar { flex-shrink: 0; }
+
+    /* ── Inline tooltip ──────────────────────────────────────── */
+    .tooltip-trigger {
+      cursor: pointer;
+      display: inline;
+    }
+    .tooltip-text {
+      background: #E9E7DC;
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: var(--text);
+    }
+    .tooltip-arrow {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      vertical-align: middle;
+      margin-left: 4px;
+      position: relative;
+      top: -1px;
+    }
+    .tooltip-arrow img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .tooltip-box {
+      display: none;
+      background: #fff;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 14px 0 4px;
+      font-family: 'Lora', serif;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-mid);
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+    }
+    .tooltip-box.open { display: block; }
+    .tooltip-box-link {
+      color: var(--red);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color .15s, text-decoration-color .15s;
+      text-decoration-color: currentColor;
+    }
+    .tooltip-box-link:hover {
+      color: var(--text-mid);
+      text-decoration-color: transparent;
+    }
+
+    /* ── Sidebar ──────────────────────────────────────────────── */
+    .sidebar { position: sticky; top: 80px; }
+
+    /* ── Key Players carousel ─────────────────────────────────── */
+    .key-players {
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--rule);
+    }
+    .key-players-label {
+      font-family: 'Archivo Narrow', sans-serif;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: #D92429;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .key-players-label::before {
+      content: '';
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #D92429;
+      flex-shrink: 0;
+    }
+    .carousel-viewport {
+      overflow: hidden;
+      position: relative;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform .35s ease;
+    }
+    .carousel-card {
+      min-width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .carousel-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .carousel-card-identity {
+      display: flex;
+      flex-direction: column;
+    }
+    .carousel-card-photo {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      overflow: hidden;
+      background: #d8d7d0;
+      flex-shrink: 0;
+    }
+    .carousel-card-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .carousel-card-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #c8c7c0, #a8a7a0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .carousel-card-name {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-top: 4px;
+    }
+    .carousel-card-name a {
+      color: var(--red);
+      text-decoration: none;
+      transition: opacity .15s;
+    }
+    .carousel-card-name a:hover { opacity: .7; }
+    .carousel-card-role {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-light);
+      margin-top: 2px;
+      display: block;
+    }
+    .carousel-card-bio {
+      font-family: 'Lora', serif;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-mid);
+      margin-top: 4px;
+    }
+    .carousel-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+    }
+    .carousel-arrow {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      transition: opacity .15s, transform .15s;
+    }
+    .carousel-arrow:hover { opacity: .8; transform: scale(1.05); }
+    .carousel-arrow img { width: 100%; height: 100%; display: block; }
+    .carousel-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .carousel-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--rule);
+      transition: background .2s, transform .2s;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+    }
+    .carousel-dot.active {
+      background: #D92429;
+      transform: scale(1.3);
+    }
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    .site-footer {
+      background: #222222;
+      color: #ccc;
+      padding: 48px 24px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .footer-logo {
+      display: flex;
+      justify-content: center;
+    }
+    .footer-logo img {
+      width: auto;
+      height: 112px;
+      display: block;
+    }
+    .footer-brand {
+      display: flex;
+      justify-content: flex-start;
+      text-align: left;
+    }
+    .footer-brand .footer-tagline {
+      font-family: 'Source Serif 4', serif;
+      font-size: 28px;
+      line-height: 1.4;
+      color: #f4f3ec;
+      max-width: 450px;
+    }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 32px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid #333;
+      font-size: 12px;
+      font-weight: 700;
+      color: #f4f3ec;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ── Responsive ───────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .content-row { grid-template-columns: 1fr; }
+      .sidebar { position: static; order: 2; }
+      main { order: 1; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .footer-logo, .footer-brand { justify-content: center; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .nav-logo-text .occrp-full { display: none; }
+      .byline-wrap { flex-direction: column; }
+      .byline-right { flex-direction: column; align-items: flex-start; }
+      .article-meta { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Top accent bar ── -->
+  <div class="top-bar"></div>
+
+  <!-- ── Site header ── -->
+  <header class="site-header">
+    <div class="nav-inner">
+      <button class="nav-menu-btn" onclick="document.getElementById('megaMenu').classList.toggle('open')" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        MENU
+      </button>
+      <a href="#" class="nav-logo" aria-label="OCCRP Home">
+        <img src="logo.png" alt="OCCRP — Organized Crime and Corruption Reporting Project" />
+      </a>
+    </div>
+  </header>
+
+  <!-- ── Mega-menu ── -->
+  <div class="mega-menu" id="megaMenu">
+    <div class="mega-menu-panel">
+      <button class="mega-menu-close" onclick="document.getElementById('megaMenu').classList.remove('open')" aria-label="Close menu">&times;</button>
+      <a href="#">Investigations</a>
+      <a href="#">Data & Tools</a>
+      <a href="#">Topics</a>
+      <a href="#">Regions</a>
+      <a href="#">About OCCRP</a>
+      <a href="#">Our Network</a>
+      <a href="#">Grants & Fellowships</a>
+      <a href="#">Press Freedom</a>
+      <a href="#">Contact</a>
+      <a href="#" style="color:var(--red);border-color:var(--red)">Donate</a>
+    </div>
+    <div style="flex:1" onclick="document.getElementById('megaMenu').classList.remove('open')"></div>
+  </div>
+
+  <!-- ── Article header ── -->
+  <header class="article-header">
+    <h1 class="article-headline">
+      Sanctioned Russian Banker Andrei Kostin, Head of ‘Putin’s Piggy Bank,’ Uses Canadian Man as Proxy For Vast Holdings
+    </h1>
+    <p class="article-deck">
+      A man named Eric Whyte controls offshores that own luxury properties and investments worth millions. Clues suggest he is acting as a proxy for Andrei Kostin, a sanctioned Russian banker with strong Kremlin ties.
+    </p>
+
+  </header>
+
+  <!-- ── Hero image ── -->
+  <div class="hero-wrap">
+    <img src="hero.png" alt="Illustration of mining trucks, stacks of Uzbek currency, and a globe with red dotted lines tracing international routes" class="hero-img" />
+    <p class="hero-caption">
+      <strong>Banner Credit:</strong> James O'Brien/OCCRP
+    </p>
+  </div>
+
+  <!-- ── Main content + sidebar ── -->
+  <div class="content-row">
+
+    <!-- ── Left: sidebar ── -->
+    <aside class="sidebar">
+
+      <!-- Byline -->
+      <div class="byline-wrap">
+        <div class="reported-by-label">Reported by</div>
+
+        <div style="display:flex;align-items:center;gap:12px;margin-top:10px">
+          <div class="author-avatar" style="flex-shrink:0;margin-right:0">
+            <img src="graham-stack.jpg" alt="Graham Stack" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />
+          </div>
+          <div class="author-names" style="margin-left:0">
+            <a href="https://www.occrp.org/en/staff/graham-stack">Graham Stack</a>
+            <span class="collab-note">OCCRP</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Key Players carousel -->
+      <div class="key-players">
+        <div class="key-players-label">Key Players</div>
+        <div class="carousel-viewport">
+          <div class="carousel-track" id="carouselTrack">
+
+            <!-- Card 1 -->
+            <div class="carousel-card">
+              <div class="carousel-card-header">
+                <div class="carousel-card-photo">
+                  <img src="putin-portrait.jpg" alt="Vladimir Putin" />
+                </div>
+                <div class="carousel-card-identity">
+                  <div class="carousel-card-name"><a href="https://www.occrp.org/en/people/vladimir-putin/page/1">Vladimir Putin</a></div>
+                  <div class="carousel-card-role">President of Russia</div>
+                </div>
+              </div>
+              <p class="carousel-card-bio">A Russian politician and former intelligence officer who has served as President of Russia since 2012, having previously served from 2000 to 2008. Putin also served as Prime Minister of Russia from 1999 to 2000 and again from 2008 to 2012.</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="carousel-card">
+              <div class="carousel-card-header">
+                <div class="carousel-card-photo">
+                  <img src="andrei-portrait.jpg" alt="Andrei Kostin" />
+                </div>
+                <div class="carousel-card-identity">
+                  <div class="carousel-card-name"><a href="https://www.occrp.org/en/people/andrei-kostin/page/1">Andrei Kostin</a></div>
+                  <div class="carousel-card-role">Russian Banker</div>
+                </div>
+              </div>
+              <p class="carousel-card-bio">A Russian businessman who is chairman of the United Shipbuilding Corporation's Board of Directors since August 25, 2023. President and Chairman of the Board of VTB since June 10, 2002.</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="carousel-card">
+              <div class="carousel-card-header">
+                <div class="carousel-card-photo">
+                  <img src="navalny-portrait.png" alt="Alexei Navalny" />
+                </div>
+                <div class="carousel-card-identity">
+                  <div class="carousel-card-name"><a href="https://www.occrp.org/en/people/alexei-navalny/page/1">Alexei Navalny</a></div>
+                  <div class="carousel-card-role">Russian Activist</div>
+                </div>
+              </div>
+              <p class="carousel-card-bio">A Russian opposition leader, anti-corruption activist and political prisoner. He founded the Anti-Corruption Foundation in 2011. He was recognised by Amnesty International as a prisoner of conscience and was awarded the Sakharov Prize for his work on human rights.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="carousel-nav">
+          <button class="carousel-arrow" id="carouselPrev" aria-label="Previous">
+            <img src="arrow-left.png" alt="Previous" />
+          </button>
+          <div class="carousel-dots" id="carouselDots"></div>
+          <button class="carousel-arrow" id="carouselNext" aria-label="Next">
+            <img src="arrow-right.png" alt="Next" />
+          </button>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ── Right: article body ── -->
+    <main>
+
+      <!-- Key Findings -->
+      <details class="key-findings" open>
+        <summary>Key Findings</summary>
+        <ul>
+          <li>Eric Whyte, a Canadian citizen, appears in documents from the Pandora Papers as the beneficial owner of companies set up in the British Virgin Islands that owned luxury properties in Russia and Europe.</li>
+          <li>Some of these firms appear to have been used to hide Andrei Kostin’s ownership of an international portfolio of high-end real estate.</li>
+          <li>The companies are connected to others, mostly registered in Cyprus, that own assets worth an estimated $130 million.</li>
+        </ul>
+      </details>
+
+      <!-- Date / share bar -->
+      <div class="article-meta-bar">
+        <div class="article-meta">
+          <div class="article-date">July 28, 2022</div>
+          <span class="article-meta-sep">|</span>
+          <div class="article-read-time">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            11 min read
+          </div>
+        </div>
+        <div class="share-bar">
+          <button class="share-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Text settings
+          </button>
+          <button class="share-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Share article
+          </button>
+        </div>
+      </div>
+
+      <!-- Article body -->
+      <div class="article-body">
+        <p>The son of a globe-trotting Canadian communist, Eric Whyte moved to the Soviet Union as a boy in 1966, and was educated at a prestigious school outside Moscow. Those are nearly all of the scant details publicly available about his life –– even “Champagne and Meatballs,” a book-length memoir by Whyte’s late father, Bert, only mentions his birth.</p>
+        <p>But while Whyte maintains a low profile, leaked corporate documents offer a clue about his activities over the past decade or so: He appears to be a frontman for sanctioned Russian banker Andrei Kostin.</p>
+        <p>Whyte owns companies registered in secretive offshore financial jurisdictions that hold luxury properties across Russia and Europe. Many of these assets have links to Kostin, a key Kremlin ally and head of the state-owned bank VTB.</p>
+        <p>A larger corporate network of firms with connections to Eric Whyte’s companies owns more properties, as well as investments and stakes in Russian retailers and restaurant chains — including Burger King and KFC — worth some $130 million.</p>
+        <p>“It looks very compelling that Whyte has been acting as a proxy for Kostin,” said Tamara Makarenko, a veteran of the business intelligence sector with extensive experience investigating oligarchs.</p>
+        <p>“The pieces of the puzzle… are reflective of how we know oligarchs have been hiding their wealth,” she said after reviewing OCCRP’s findings.</p>
+        <p>Kostin has good reason for wanting to disguise any riches he might have accrued during his 20 years as chairman of VTB: He is sanctioned in the U.S. and EU for his support of the ongoing Russian war in Ukraine and the annexation of Crimea in 2014.</p>
+        <p>Whyte, Kostin, and VTB all declined to comment for this story. But Kostin did give a frank interview to CNBC in 2018 about the impact the sanctions were having on him personally.</p>
+        <p>He had been unable to travel to Bali for an International Monetary Fund meeting, he said, nor could he go skiing in Colorado. “Which is very unfortunate. The best snow [is] in Colorado –– a very good mountain,” he said.</p>
+        <p><i>This is not a complete story. It has been built as a prototype for the purpose of this test.</i></p>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- ── Footer ── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="logo-dark.png" alt="OCCRP — Organized Crime and Corruption Reporting Project" />
+      </div>
+      <div class="footer-brand">
+        <p class="footer-tagline">A nonprofit, mission-driven newsroom that partners with other media outlets to publish stories that spur action.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 OCCRP</span>
+      <span>
+        <a href="#" style="color:#f4f3ec;margin-right:16px">Privacy Policy</a>
+        <a href="#" style="color:#f4f3ec">Terms of Use</a>
+      </span>
+    </div>
+  </footer>
+
+  <script>
+    // ── Tooltip ──────────────────────────────────────────────────
+    (function () {
+      const trigger  = document.getElementById('tooltipTrigger');
+      const box      = document.getElementById('tooltipBox');
+      const arrowImg = document.getElementById('tooltipArrowImg');
+      if (!trigger || !box || !arrowImg) return;
+      let open = false;
+
+      trigger.addEventListener('click', function () {
+        open = !open;
+        trigger.classList.toggle('open', open);
+        box.classList.toggle('open', open);
+        arrowImg.src = open ? 'arrow-up.png' : 'arrow-down.png';
+      });
+    })();
+
+    // ── Carousel ─────────────────────────────────────────────────
+    (function () {
+      const track   = document.getElementById('carouselTrack');
+      const dotsWrap = document.getElementById('carouselDots');
+      const cards   = track.querySelectorAll('.carousel-card');
+      const total   = cards.length;
+      let current   = 0;
+
+      // Build dots
+      cards.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(dot);
+      });
+
+      function goTo(index) {
+        current = (index + total) % total;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        dotsWrap.querySelectorAll('.carousel-dot').forEach((d, i) => {
+          d.classList.toggle('active', i === current);
+        });
+      }
+
+      document.getElementById('carouselPrev').addEventListener('click', () => goTo(current - 1));
+      document.getElementById('carouselNext').addEventListener('click', () => goTo(current + 1));
+    })();
+  </script>
+
+</body>
+</html>
