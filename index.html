@@ -430,30 +430,54 @@
     .article-meta-bar .article-meta { text-align: left; }
     .article-meta-bar .share-bar { flex-shrink: 0; }
 
-    /* ── Pull quote ───────────────────────────────────────────── */
-    .pull-quote {
-      border-left: 4px solid #D92429;
-      margin: 36px 0;
-      padding: 20px 24px;
-      position: relative;
+    /* ── Inline tooltip ──────────────────────────────────────── */
+    .tooltip-trigger {
+      cursor: pointer;
+      display: inline;
     }
-    .pull-quote-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 20px;
-      font-style: italic;
-      line-height: 1.55;
-      color: #222;
-      margin-bottom: 10px;
-      position: relative;
-      z-index: 1;
+    .tooltip-text {
+      background: #E9E7DC;
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: var(--text);
     }
-    .pull-quote-attr {
-      font-family: 'Source Sans 3', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--text-light);
+    .tooltip-arrow {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      vertical-align: middle;
+      margin-left: 4px;
+      position: relative;
+      top: -1px;
+    }
+    .tooltip-arrow img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .tooltip-box {
+      display: none;
+      background: #fff;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 14px 0 4px;
+      font-family: 'Lora', serif;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-mid);
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+    }
+    .tooltip-box.open { display: block; }
+    .tooltip-box-link {
+      color: var(--red);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color .15s, text-decoration-color .15s;
+      text-decoration-color: currentColor;
+    }
+    .tooltip-box-link:hover {
+      color: var(--text-mid);
+      text-decoration-color: transparent;
     }
 
     /* ── Sidebar ──────────────────────────────────────────────── */
@@ -711,10 +735,10 @@
   <!-- ── Article header ── -->
   <header class="article-header">
     <h1 class="article-headline">
-      Secretive Firms From U.K. to Singapore Win $200M in Tenders From Uzbek State Giant
+      Sanctioned Russian Banker Andrei Kostin, Head of ‘Putin’s Piggy Bank,’ Uses Canadian Man as Proxy For Vast Holdings
     </h1>
     <p class="article-deck">
-      A major Uzbek state mining company awarded hundreds of millions of dollars in tenders to companies in the U.K., Georgia, and Singapore. Reporters found they have connections to an Uzbek ping-pong official, while some have unclear ownership information or received contracts despite company filings indicating they were inactive.
+      A man named Eric Whyte controls offshores that own luxury properties and investments worth millions. Clues suggest he is acting as a proxy for Andrei Kostin, a sanctioned Russian banker with strong Kremlin ties.
     </p>
 
   </header>
@@ -723,7 +747,7 @@
   <div class="hero-wrap">
     <img src="hero.png" alt="Illustration of mining trucks, stacks of Uzbek currency, and a globe with red dotted lines tracing international routes" class="hero-img" />
     <p class="hero-caption">
-      <strong>OCCRP</strong> &nbsp;|&nbsp; Illustration depicting the flow of state mining contracts across international borders.
+      <strong>Banner Credit:</strong> James O'Brien/OCCRP
     </p>
   </div>
 
@@ -737,25 +761,16 @@
       <div class="byline-wrap">
         <div class="reported-by-label">Reported by</div>
 
-        <div style="display:flex;align-items:center;gap:12px;margin-top:12px">
-          <div class="author-avatar" style="flex-shrink:0;margin-right:0">
-            <img src="ilya-lozovsky.jpg" alt="Ilya Lozovsky" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />
-          </div>
-          <div class="author-names" style="margin-left:0">
-            <a href="https://www.occrp.org/en/staff/ilya-lozovsky" target="_blank">Ilya Lozovsky</a>
-            <span class="collab-note">OCCRP</span>
-          </div>
-        </div>
-
         <div style="display:flex;align-items:center;gap:12px;margin-top:10px">
           <div class="author-avatar" style="flex-shrink:0;margin-right:0">
             <img src="graham-stack.jpg" alt="Graham Stack" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" />
           </div>
           <div class="author-names" style="margin-left:0">
-            <a href="https://www.occrp.org/en/staff/graham-stack" target="_blank">Graham Stack</a>
+            <a href="https://www.occrp.org/en/staff/graham-stack">Graham Stack</a>
             <span class="collab-note">OCCRP</span>
           </div>
         </div>
+
       </div>
 
       <!-- Key Players carousel -->
@@ -771,7 +786,7 @@
                   <img src="putin-portrait.jpg" alt="Vladimir Putin" />
                 </div>
                 <div class="carousel-card-identity">
-                  <div class="carousel-card-name"><a href="https://www.occrp.org/en/people/vladimir-putin/page/1" target="_blank">Vladimir Putin</a></div>
+                  <div class="carousel-card-name"><a href="https://www.occrp.org/en/people/vladimir-putin/page/1">Vladimir Putin</a></div>
                   <div class="carousel-card-role">President of Russia</div>
                 </div>
               </div>
@@ -782,28 +797,28 @@
             <div class="carousel-card">
               <div class="carousel-card-header">
                 <div class="carousel-card-photo">
-                  <img src="macron-portrait.jpg" alt="Emmanuel Macron" />
+                  <img src="andrei-portrait.jpg" alt="Andrei Kostin" />
                 </div>
                 <div class="carousel-card-identity">
-                  <div class="carousel-card-name"><a href="https://www.occrp.org/en/people/emmanuel-macron/page/1" target="_blank">Emmanuel Macron</a></div>
-                  <div class="carousel-card-role">President of France</div>
+                  <div class="carousel-card-name"><a href="https://www.occrp.org/en/people/andrei-kostin/page/1">Andrei Kostin</a></div>
+                  <div class="carousel-card-role">Russian Banker</div>
                 </div>
               </div>
-              <p class="carousel-card-bio">A French politician who has served as President of France and Co-Prince of Andorra since 2017. He served as Minister of Economics and Finance under President François Hollande from 2014 to 2016. He has been a member of Renaissance since founding the party in 2016.</p>
+              <p class="carousel-card-bio">A Russian businessman who is chairman of the United Shipbuilding Corporation's Board of Directors since August 25, 2023. President and Chairman of the Board of VTB since June 10, 2002.</p>
             </div>
 
             <!-- Card 3 -->
             <div class="carousel-card">
               <div class="carousel-card-header">
                 <div class="carousel-card-photo">
-                  <img src="magyar-portrait.jpg" alt="Péter Magyar" />
+                  <img src="navalny-portrait.png" alt="Alexei Navalny" />
                 </div>
                 <div class="carousel-card-identity">
-                  <div class="carousel-card-name"><a href="https://www.occrp.org/en/people/page/1" target="_blank">Péter Magyar</a></div>
-                  <div class="carousel-card-role">Member of the European Parliament</div>
+                  <div class="carousel-card-name"><a href="https://www.occrp.org/en/people/alexei-navalny/page/1">Alexei Navalny</a></div>
+                  <div class="carousel-card-role">Russian Activist</div>
                 </div>
               </div>
-              <p class="carousel-card-bio">A Hungarian politician and lawyer who is the president of the Tisza Party. He led the party to victory in the 2026 parliamentary election and is expected to become the next prime minister of Hungary. Magyar served as a member of the European Parliament from 2024 to 2026.</p>
+              <p class="carousel-card-bio">A Russian opposition leader, anti-corruption activist and political prisoner. He founded the Anti-Corruption Foundation in 2011. He was recognised by Amnesty International as a prisoner of conscience and was awarded the Sakharov Prize for his work on human rights.</p>
             </div>
 
           </div>
@@ -830,17 +845,16 @@
       <details class="key-findings" open>
         <summary>Key Findings</summary>
         <ul>
-          <li>A state mining giant in Uzbekistan awarded more than $200 million in tenders to 10 foreign firms in multiple countries that have connections to an Uzbek ping-pong official.</li>
-          <li>Two of the companies made a flurry of changes to their respective corporate structures after OCCRP and Finance Uncovered inquired about their ownership.</li>
-          <li>Several of the companies that won tenders are, on paper at least, inactive.</li>
-          <li>Millions of dollars in contracts between the Uzbek company and two U.K.-incorporated tender winners feature signatures of individuals who say they never signed the documents.</li>
+          <li>Eric Whyte, a Canadian citizen, appears in documents from the Pandora Papers as the beneficial owner of companies set up in the British Virgin Islands that owned luxury properties in Russia and Europe.</li>
+          <li>Some of these firms appear to have been used to hide Andrei Kostin’s ownership of an international portfolio of high-end real estate.</li>
+          <li>The companies are connected to others, mostly registered in Cyprus, that own assets worth an estimated $130 million.</li>
         </ul>
       </details>
 
       <!-- Date / share bar -->
       <div class="article-meta-bar">
         <div class="article-meta">
-          <div class="article-date">February 4, 2025</div>
+          <div class="article-date">July 28, 2022</div>
           <span class="article-meta-sep">|</span>
           <div class="article-read-time">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -848,11 +862,11 @@
           </div>
         </div>
         <div class="share-bar">
-          <button class="share-btn" onclick="window.print()">
+          <button class="share-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
             Text settings
           </button>
-          <button class="share-btn" onclick="navigator.share ? navigator.share({title:document.title,url:location.href}) : alert('Copy URL: ' + location.href)">
+          <button class="share-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
             Share article
           </button>
@@ -861,14 +875,16 @@
 
       <!-- Article body -->
       <div class="article-body">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus mattis maximus. Morbi suscipit bibendum massa non congue. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Integer dictum mauris id sem ultrices egestas. Sed eu augue ullamcorper, tempus ligula dignissim, elementum risus. Quisque blandit malesuada ipsum ac aliquet. Proin ac ornare mi. Donec sit amet mattis libero. Aliquam turpis mauris, ultricies eget sagittis eget, tempus a enim. Sed at urna nec leo eleifend ornare quis sit amet est.</p>
-        <p>Nulla nec nunc a enim pulvinar faucibus eu id ipsum. Aliquam dictum bibendum justo, eget porta ante volutpat eget. Praesent ornare neque ut leo ultricies laoreet. Donec vitae quam facilisis, tristique lorem eu, ultrices sapien. Fusce fermentum commodo arcu, sit amet rutrum velit tincidunt sed. Proin et dolor nunc. Praesent arcu ante, pharetra sed aliquet ac, placerat interdum nunc. Proin et consectetur velit, consequat vestibulum nisi. Nullam placerat tortor vel aliquam posuere. Curabitur hendrerit magna quis erat ultrices maximus.</p>
-        <p>Aliquam ut massa a sem consequat imperdiet. Duis laoreet nulla suscipit mauris elementum sagittis. Cras pharetra tortor nec iaculis egestas. Nullam commodo elit vitae venenatis posuere. Cras at lectus malesuada, condimentum felis ut, placerat est. Donec posuere magna eget cursus feugiat. Cras tristique ex ac metus suscipit vulputate. Donec faucibus interdum bibendum.</p>
-        <p>Curabitur accumsan sem a sapien mollis laoreet. Mauris lacinia sollicitudin justo at maximus. Nulla efficitur fermentum mi, vitae semper dui. Quisque sed enim condimentum nunc dapibus eleifend id sit amet sem. Morbi tempus urna arcu, ac ultricies mauris vehicula id. Nam finibus justo a diam rutrum placerat. Aliquam pharetra ipsum et arcu pharetra lobortis. Morbi porttitor enim rutrum dapibus rutrum.</p>
-        <p>Vestibulum aliquam mauris vel dolor hendrerit, eget pretium sapien dapibus. Proin non nulla commodo, pharetra sapien ac, varius arcu. Suspendisse viverra lacus at neque lobortis semper. Aliquam ac commodo diam, non vehicula mi. Duis porttitor orci velit, ut placerat elit mattis vitae. Curabitur gravida vulputate elit, in dapibus augue sagittis consequat. Integer semper nisi vitae nibh facilisis semper. Sed augue sapien, dapibus eu ante vitae, tempor rhoncus turpis. Aliquam ac augue at est vulputate consectetur. Pellentesque facilisis lectus tellus, ac fermentum turpis consequat eu. Nullam id dui risus. Donec sed ipsum vestibulum, placerat nisi vitae, pretium ipsum. Nullam eu venenatis leo, non interdum dolor. Maecenas tempor non tellus quis mattis. Pellentesque at diam ac ex rhoncus elementum. Etiam dui magna, pellentesque eu nulla sit amet, euismod sagittis urna.</p>
-        <p>Suspendisse ac maximus eros, eget vulputate orci. Sed vitae risus faucibus, dictum tellus vel, fermentum dui. Suspendisse fringilla at lorem quis eleifend. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi bibendum mattis enim, non suscipit ipsum pretium a. Etiam quam sem, mollis ut rhoncus ac, tristique quis eros. Phasellus non hendrerit leo, ut blandit lectus. Nulla id lacus eu ante ullamcorper scelerisque. Sed molestie tellus tellus, et mollis erat aliquam non. Aliquam facilisis, nunc non ornare pretium, felis ex aliquet turpis, a bibendum justo dui ac eros.</p>
-        <p>Etiam condimentum mauris justo, vel porttitor nibh elementum id. Donec dignissim ligula augue, ut dapibus arcu mollis ac. Nullam risus augue, volutpat ultricies euismod lobortis, facilisis ac eros. Praesent non metus ut massa finibus egestas vel vel quam. Donec finibus a odio et suscipit. Donec ornare faucibus lectus, ut blandit purus consequat ut. Curabitur est enim, condimentum quis risus sit amet, efficitur venenatis lorem. Donec tempor, felis non pulvinar blandit, ante est efficitur tortor, sit amet suscipit felis dolor eget libero. Fusce quis dui neque. Mauris molestie et mi in accumsan. Curabitur cursus hendrerit lectus, id mollis nibh porttitor et.</p>
-        <p>Etiam sit amet sem iaculis, luctus neque ac, iaculis sem. Proin hendrerit cursus magna, et pulvinar libero euismod a. Donec elementum, magna vel ultricies eleifend, sapien libero mollis nisi, eget malesuada libero purus eu neque. Fusce id imperdiet enim. Aenean dignissim, justo id venenatis eleifend, tortor leo lacinia mi, id dictum risus est a leo. Integer eleifend facilisis egestas. In lobortis et enim vitae sollicitudin. Phasellus vitae mauris lobortis, tempus quam in, aliquam sapien. Suspendisse non ultrices purus, vehicula maximus ipsum. Donec vulputate turpis ac ipsum malesuada, at iaculis nulla iaculis. Nunc ac malesuada ligula, condimentum congue erat. Quisque a tristique velit, non gravida felis. Quisque posuere est vel sem facilisis viverra.</p>
+        <p>The son of a globe-trotting Canadian communist, Eric Whyte moved to the Soviet Union as a boy in 1966, and was educated at a prestigious school outside Moscow. Those are nearly all of the scant details publicly available about his life –– even “Champagne and Meatballs,” a book-length memoir by Whyte’s late father, Bert, only mentions his birth.</p>
+        <p>But while Whyte maintains a low profile, leaked corporate documents offer a clue about his activities over the past decade or so: He appears to be a frontman for sanctioned Russian banker Andrei Kostin.</p>
+        <p>Whyte owns companies registered in secretive offshore financial jurisdictions that hold luxury properties across Russia and Europe. Many of these assets have links to Kostin, a key Kremlin ally and head of the state-owned bank VTB.</p>
+        <p>A larger corporate network of firms with connections to Eric Whyte’s companies owns more properties, as well as investments and stakes in Russian retailers and restaurant chains — including Burger King and KFC — worth some $130 million.</p>
+        <p>“It looks very compelling that Whyte has been acting as a proxy for Kostin,” said Tamara Makarenko, a veteran of the business intelligence sector with extensive experience investigating oligarchs.</p>
+        <p>“The pieces of the puzzle… are reflective of how we know oligarchs have been hiding their wealth,” she said after reviewing OCCRP’s findings.</p>
+        <p>Kostin has good reason for wanting to disguise any riches he might have accrued during his 20 years as chairman of VTB: He is sanctioned in the U.S. and EU for his support of the ongoing Russian war in Ukraine and the annexation of Crimea in 2014.</p>
+        <p>Whyte, Kostin, and VTB all declined to comment for this story. But Kostin did give a frank interview to CNBC in 2018 about the impact the sanctions were having on him personally.</p>
+        <p>He had been unable to travel to Bali for an International Monetary Fund meeting, he said, nor could he go skiing in Colorado. “Which is very unfortunate. The best snow [is] in Colorado –– a very good mountain,” he said.</p>
+        <p><i>This is not a complete story. It has been built as a prototype for the purpose of this test.</i></p>
       </div>
     </main>
 
@@ -894,6 +910,23 @@
   </footer>
 
   <script>
+    // ── Tooltip ──────────────────────────────────────────────────
+    (function () {
+      const trigger  = document.getElementById('tooltipTrigger');
+      const box      = document.getElementById('tooltipBox');
+      const arrowImg = document.getElementById('tooltipArrowImg');
+      if (!trigger || !box || !arrowImg) return;
+      let open = false;
+
+      trigger.addEventListener('click', function () {
+        open = !open;
+        trigger.classList.toggle('open', open);
+        box.classList.toggle('open', open);
+        arrowImg.src = open ? 'arrow-up.png' : 'arrow-down.png';
+      });
+    })();
+
+    // ── Carousel ─────────────────────────────────────────────────
     (function () {
       const track   = document.getElementById('carouselTrack');
       const dotsWrap = document.getElementById('carouselDots');
